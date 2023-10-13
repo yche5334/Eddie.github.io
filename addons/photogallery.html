@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .photo-gallery {
+            position: relative;
+            width: 300px;
+            overflow: hidden;
+        }
+
+        .gallery-slides {
+            display: flex;
+            width: calc(300px * 3);
+            transition: all 0.3s;
+        }
+
+        .gallery-slides img {
+            width: 300px;
+            height: auto;
+        }
+
+        .btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+            text-decoration: none;
+        }
+
+        .prev {
+            left: 0;
+        }
+
+        .next {
+            right: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="photo-gallery">
+    <a href="#" class="btn prev">&#10094;</a>
+    <div class="gallery-slides">
+<!--        add image here-->
+
+    </div>
+    <a href="#" class="btn next">&#10095;</a>
+</div>
+
+<script>
+    let slideIndex = 1;
+    showSlide(slideIndex);
+
+    function moveSlide(n) {
+        showSlide(slideIndex += n);
+    }
+
+    function showSlide(n) {
+        const slides = document.querySelectorAll(".gallery-slides img");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+
+        // Initially hide all slides
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.transform = `translateX(-${300 * (slideIndex - 1)}px)`;
+        }
+    }
+
+    document.querySelector(".prev").addEventListener("click", function() {
+        moveSlide(-1);
+    });
+
+    document.querySelector(".next").addEventListener("click", function() {
+        moveSlide(1);
+    });
+
+</script>
+
+
+
+</body>
+</html>
